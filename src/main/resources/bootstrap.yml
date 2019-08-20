@@ -1,0 +1,26 @@
+server:
+  port: ${port:9999}
+
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        healthCheckPath: /configuration-server/health
+        healthCheckInterval: 10s
+      config:
+        enabled: false
+    config:
+      server:
+        git:
+          uri: https://<GIT_HUB_CONFIGURATION_URL>
+          clone-on-start: true
+          username: conf_user
+          password: dev
+
+
+management:
+  security:
+    enabled: false
